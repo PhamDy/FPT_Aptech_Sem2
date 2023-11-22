@@ -1,0 +1,32 @@
+<html>
+<head>
+<script>
+function loadXMLDoc(dname)
+{ try //Internet Explorer
+{ xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+}
+catch(e)
+{ try //Firefox, Mozilla, Opera, etc.
+{ xmlDoc=document.implementation.createDocument("","",null);
+}
+catch(e) {alert(e.message)}
+}
+try{ xmlDoc.async=false;
+xmlDoc.load(dname);
+return(xmlDoc);
+}
+catch(e) {alert(e.message)}
+return(null);
+} </script>
+</head>
+<body>
+<script type="text/javascript">
+xmlDoc=loadXMLDoc("books.xml");
+x=xmlDoc.getElementsByTagName("title");
+for (i=0;i<x.length;i++)
+{ document.write(x[i].childNodes[0].nodeValue);
+document.write("<br />");
+}
+</script>
+</body>
+</html>

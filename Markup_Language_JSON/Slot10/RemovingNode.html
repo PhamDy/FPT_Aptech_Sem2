@@ -1,0 +1,18 @@
+<html>
+<head>
+<script type="text/javascript" src="loadxmldoc.js">
+</script>
+</head>
+<body>
+<script type="text/javascript">
+xmlDoc=loadXMLDoc("books.xml");
+document.write("Number of book nodes: ");
+document.write(xmlDoc.getElementsByTagName('book').length);
+document.write("<br />");
+y=xmlDoc.getElementsByTagName("book")[0];
+xmlDoc.documentElement.removeChild(y);
+document.write("Number of book nodes after removeChild(): ");
+document.write(xmlDoc.getElementsByTagName('book').length);
+</script>
+</body>
+</html>
