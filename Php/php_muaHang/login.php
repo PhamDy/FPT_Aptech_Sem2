@@ -1,25 +1,25 @@
 <?php
 session_start();
 
-// Kiểm tra nếu người dùng đã đăng nhập, chuyển hướng đến trang dashboard.php
+// Kiểm tra nếu người dùng đã đăng nhập, chuyển hướng đến trang product.php
 if (isset($_SESSION['user_id'])) {
-    header("Location: dashboard.php");
+    header("Location: product.php");
     exit();
 }
 
 // Kiểm tra nếu người dùng đã gửi form đăng nhập
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kết nối đến database
-    include 'StudentManager.php';
-    $studentManager = new StudentManager();
+    include 'Manager.php';
+    $Manager = new Manager();
 
     // Lấy dữ liệu từ form đăng nhập
     $username = $_POST["username"];
     $password = $_POST["password"];
 
     // Thực hiện truy vấn kiểm tra đăng nhập
-    $sql = "SELECT * FROM account WHERE username=? AND password=?";
-    $stmt = $studentManager->conn->prepare($sql);
+    $sql = "SELECT * FROM customer WHERE username=? AND pwd=?";
+    $stmt = $Manager->conn->prepare($sql);
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
 
@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
 
-        // Chuyển hướng đến trang dashboard.php
-        header("Location: dashboard.php");
+        // Chuyển hướng đến trang product.php
+        header("Location: product.php");
         exit();
     } else {
         $error_message = "Đăng nhập không thành công. Vui lòng kiểm tra lại tên đăng nhập và mật khẩu.";
@@ -76,4 +76,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 </body>
 </html>
+
 
