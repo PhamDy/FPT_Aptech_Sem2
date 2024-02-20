@@ -49,3 +49,18 @@ UPDATE time_sheets
 SET end_time = '17:59:57' , leave_early = 1
 WHERE employee_id = 1 AND work_date = '2024-02-20';
 
+
+INSERT INTO performances (employee_id, years, months)
+VALUES (1, '2024', 1),
+       (1, '2024', 2),
+       (1, '2024', 3),
+       (1, '2024', 4),
+       (1, '2024', 5),
+       (1, '2024', 6),
+       (1, '2024', 7),
+       (1, '2024', 8),
+       (1, '2024', 9),
+       (1, '2024', 10),
+       (1, '2024', 11),
+       (1, '2024', 12);
+

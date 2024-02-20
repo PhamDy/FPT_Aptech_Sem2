@@ -11,9 +11,13 @@
     $Manager = new Manager();
 
     date_default_timezone_set('Asia/Ho_Chi_Minh');
+//    $check_time = strtotime('22:00:00');
+//    $current_time = time();
     $workdate = date('Y-m-d');
     $TimeNow = date('H:i:s');
     $user_id = $_SESSION['user_id'];
+    $year = date('Y');
+    $month = date('m');
 
     // Xử lý khi có dữ liệu POST được gửi lên từ form
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['session']) && $_POST['session'] === 'morning') {
@@ -29,14 +33,11 @@
             $late = ($start_time_timestamp > $eight_am_timestamp) ? true : false;
             $attendance1 = $Manager->attendanceEmployeeMorning($user_id, $workdate, $start_time, $late, $attendance);
             $message1 = "Attendance morning successful";
-//            header("Location: Attendance.php");
-//            exit();
         }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['session']) && $_POST['session'] === 'afternoon') {
         if ($Manager->checkAfternoonAttendance($user_id, $workdate)) {
-            echo "ok";
             $error_message2 = "You took roll call this afternoon or did not take attendance in the morning";
         } else {
             $end_time = $TimeNow;
@@ -44,10 +45,30 @@
             $start_time_timestamp = strtotime($end_time);
             $eight_am_timestamp = strtotime('17:00:00');
             $leave_early = ($start_time_timestamp < $eight_am_timestamp) ? true : false;
-            $attendance1 = $Manager->attendanceEmployeeAftermnoon($user_id, $end_time, $leave_early, $workdate);
+            $attendance2 = $Manager->attendanceEmployeeAftermnoon($user_id, $end_time, $leave_early, $workdate);
+
+
+            // Tính điểm
+            $scoreLate = 0.2 * $Manager->countLate();
+            $scoreLeaveEarly = 0.2 * $Manager->countLeaveEarly();
+            $dayWorking = $Manager->countAttendance2();
+            $dayOff = $Manager->countAttendance0();
+            $scoreWorkHalf = 0.5 * $Manager->countAttendance1();
+
+            if ($dayOff == 0) {
+                $score = 22 - $scoreLate - $scoreLeaveEarly - $dayOff + $scoreWorkHalf + 1;
+            } else {
+                $score = 22 - $scoreLate - $scoreLeaveEarly - $dayOff + $scoreWorkHalf;
+            }
+
+            $savePerforman = $Manager->addPerformanceEmployee($user_id, $year, $month, $dayOff, $dayWorking, $scoreWorkHalf);
             $message2 = "Attendance afternoon successful";
+
         }
     }
+
+
+
 
 
 
@@ -123,7 +144,7 @@
                         <!-- Nút điểm danh buổi chiều -->
                         <input type="hidden" name="employee_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <input type="hidden" name="session" value="afternoon">
-                        <button type="submit" class="btn btn-success" onclick="return confirm('Attendance afternoon successful')">Attendance afternoon</button>
+                        <button type="submit" class="btn btn-success">Attendance afternoon</button>
                     </form>
                 </div>
             </div>
