@@ -18,6 +18,9 @@ public function __construct()
     // Kiểm tra kết nối đến CSDL
     if ($this->conn->connect_error) {
         die("Kết nối CSDL không thành công!" . $this->conn->connect_errno);
+    } else {
+        echo "ok b";
+        die("ok b");
     }
 }
 
