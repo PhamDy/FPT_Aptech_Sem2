@@ -1,4 +1,11 @@
-
+-- Tạo bảng customer
+CREATE TABLE customer (
+                          id INT PRIMARY KEY,
+                          username VARCHAR(255) NOT NULL,
+                          pwd VARCHAR(255) NOT NULL,
+                          address VARCHAR(255) NOT NULL,
+                          phone VARCHAR(255) NOT NULL
+);
 -- Tạo bảng product
 CREATE TABLE product (
                          id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,7 +45,7 @@ INSERT INTO product (id, name, img, price, product_desc) VALUES
                                                              (6, 'adidas6', 'https://img.upanh.tv/2024/01/07/adidas2.3.jpg', 300 ,'ok6');
 
 INSERT INTO customer (id, username, pwd, address, phone) VALUES
-    (1, 'nampham','123456', 'Ha Noi', '0396123456');
+    (1, 'nampham','1', 'Ha Noi', '0396123456');
 
 INSERT INTO orders (id, customer_id, order_date) VALUES
                                                      (1, 1,'2023-01-12'),
