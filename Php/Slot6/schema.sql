@@ -13,12 +13,12 @@ CREATE TABLE employees  (
 -- Tạo bảng performances
 CREATE TABLE performances (
                               id INT AUTO_INCREMENT PRIMARY KEY,
-                              employee_id INT NOT NULL,
+                              employee_id INT NULL,
                               years YEAR NOT NULL,
                               months INT NOT NULL,
-                              `days_off` INT NOT NULL,
-                              `working_days` INT NOT NULL,
-                              `efficiency_rate` DOUBLE NOT NULL,
+                              `days_off` INT NULL,
+                              `working_days` INT NULL,
+                              `score` DOUBLE NULL,
                               FOREIGN KEY (employee_id) REFERENCES employees(id),
                               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                               updated_at TIMESTAMP NULL DEFAULT NULL
@@ -29,8 +29,8 @@ CREATE TABLE time_sheets  (
                               id INT AUTO_INCREMENT PRIMARY KEY,
                               employee_id INT NOT NULL,
                               work_date DATE NOT NULL,
-                              start_time TIME NOT NULL,
-                              `end_time` TIME NOT NULL,
+                              start_time TIME NULL,
+                              `end_time` TIME NULL,
                               `late` TINYINT(1) DEFAULT 0,
                               `leave_early` TINYINT(1) DEFAULT 0,
                               `attendance` INT DEFAULT 0,
@@ -40,7 +40,8 @@ CREATE TABLE time_sheets  (
 );
 
 INSERT INTO employees (username, pwd, start_date, position)
-VALUES ('nguyenduyhoang', '1', '2024-1-1', 'staff');
+VALUES ('nguyenduyhoang', '1', '2024-1-1', 'staff'),
+       ('Test', '1', '2023-1-1', 'staff');
 
 INSERT INTO time_sheets (employee_id, work_date, end_time, leave_early)
 VALUES (1, '2024-02-20', '17:59:57', 1);
@@ -48,7 +49,6 @@ VALUES (1, '2024-02-20', '17:59:57', 1);
 UPDATE time_sheets
 SET end_time = '17:59:57' , leave_early = 1
 WHERE employee_id = 1 AND work_date = '2024-02-20';
-
 
 INSERT INTO performances (employee_id, years, months)
 VALUES (1, '2024', 1),
@@ -62,5 +62,20 @@ VALUES (1, '2024', 1),
        (1, '2024', 9),
        (1, '2024', 10),
        (1, '2024', 11),
-       (1, '2024', 12);
+       (1, '2024', 12),
+       (2, '2024', 1),
+       (2, '2024', 2),
+       (2, '2024', 3),
+       (2, '2024', 4),
+       (2, '2024', 5),
+       (2, '2024', 6),
+       (2, '2024', 7),
+       (2, '2024', 8),
+       (2, '2024', 9),
+       (2, '2024', 10),
+       (2, '2024', 11),
+       (2, '2024', 12);
 
+INSERT INTO performances (employee_id, score, years, months)
+VALUES (2,23,2024,1), (2,12,2024,2), (2,20,2024,3), (2,21,2024,3), (2,19,2024,4), (2,22,2024,5),
+       (2,12,2024,6), (2,21,2024,7), (2,19,2024,8), (2,23,2024,9), (2,23,2024,10), (2,21,2024,11), (2,22,2024,12);

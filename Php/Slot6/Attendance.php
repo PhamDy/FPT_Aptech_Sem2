@@ -49,19 +49,19 @@
 
 
             // Tính điểm
-            $scoreLate = 0.2 * $Manager->countLate();
-            $scoreLeaveEarly = 0.2 * $Manager->countLeaveEarly();
-            $dayWorking = $Manager->countAttendance2();
+            $scoreLate = 0.20 * $Manager->countLate();
+            $scoreLeaveEarly = 0.20 * $Manager->countLeaveEarly();
+            $dayWorking = 1.00 * $Manager->countAttendance2();
             $dayOff = $Manager->countAttendance0();
-            $scoreWorkHalf = 0.5 * $Manager->countAttendance1();
+            $scoreWorkHalf = 0.50 * $Manager->countAttendance1();
 
             if ($dayOff == 0) {
-                $score = 22 - $scoreLate - $scoreLeaveEarly - $dayOff + $scoreWorkHalf + 1;
+                $score = 22.00 - $scoreLate - $scoreLeaveEarly - $dayOff - $scoreWorkHalf + 1;
             } else {
-                $score = 22 - $scoreLate - $scoreLeaveEarly - $dayOff + $scoreWorkHalf;
+                $score = 22.00 - $scoreLate - $scoreLeaveEarly - $dayOff - $scoreWorkHalf;
             }
 
-            $savePerforman = $Manager->addPerformanceEmployee($user_id, $year, $month, $dayOff, $dayWorking, $scoreWorkHalf);
+            $savePerforman = $Manager->addPerformanceEmployee($user_id, $year, $month, $dayOff, $dayWorking, $score);
             $message2 = "Attendance afternoon successful";
 
         }
@@ -146,6 +146,9 @@
                         <input type="hidden" name="session" value="afternoon">
                         <button type="submit" class="btn btn-success">Attendance afternoon</button>
                     </form>
+
+                    <a href="dashboard.php" class="btn btn-info btn-sm">Dashboard</a>
+
                 </div>
             </div>
         </div>

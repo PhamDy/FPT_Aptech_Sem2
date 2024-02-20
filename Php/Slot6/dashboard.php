@@ -37,7 +37,7 @@ $list = $Manager->getEmployees()
             <th>Position</th>
             <th>Start date working</th>
             <th>Check</th>
-            <th>Update</th>
+<!--            <th>Update</th>-->
         </tr>
         </thead>
         <tbody>
@@ -47,10 +47,7 @@ $list = $Manager->getEmployees()
                 <td><?php echo $item['position']; ?></td>
                 <td><?php echo $item['start_date']; ?></td>
                 <td>
-                    <a href="" class="btn btn-info btn-sm">Performance test</a>
-                </td>
-                <td>
-                    <a href="updatePerformance.php?id=<?php echo $item['id']; ?>" class="btn btn-success btn-sm" onclick="return confirm('Update successfully')">Update performance</a>
+                    <a href="Performance.php?id=<?php echo $item['id']; ?>" class="btn btn-success btn-sm" >Performance test</a>
                 </td>
             </tr>
         <?php endforeach; ?>

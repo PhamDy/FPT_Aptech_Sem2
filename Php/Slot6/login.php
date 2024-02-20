@@ -4,15 +4,13 @@ session_start();
 // Kiểm tra nếu người dùng đã đăng nhập, chuyển hướng đến trang Attendance.php
 if (isset($_SESSION['user_id'])) {
     // Kiểm tra nếu người dùng là admin, chuyển hướng đến dashboard.php
-    if ($_SESSION['username'] === 'admin') {
-        header("Location: dashboard.php");
-        exit();
-    } else {
         // Nếu không phải admin, chuyển hướng đến trang Attendance.php
         header("Location: Attendance.php");
         exit();
-    }
+
 }
+
+
 
 // Kiểm tra nếu người dùng đã gửi form đăng nhập
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,15 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
 
+        header("Location: Attendance.php");
+            exit();
+
         // Kiểm tra nếu đăng nhập là admin, chuyển hướng đến trang dashboard.php
-        if ($Manager->checkAdmin($password)) {
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            // Nếu không phải admin, chuyển hướng đến trang Attendance.php
-            header("Location: Attendance.php");
-            exit();
-        }
+//        if ($Manager->checkAdmin($password)) {
+//            $_SESSION['user_id'] = false;
+//            header("Location: dashboard.php");
+//            exit();
+//        } else {
+//            // Nếu không phải admin, chuyển hướng đến trang Attendance.php
+//            header("Location: Attendance.php");
+//            exit();
+//        }
     } else {
         $error_message = "Đăng nhập không thành công. Vui lòng kiểm tra lại tên đăng nhập và mật khẩu.";
     }

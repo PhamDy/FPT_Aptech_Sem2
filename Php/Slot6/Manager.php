@@ -110,7 +110,7 @@ public function __construct()
 
     public function countLate()
     {
-        $sql = "SELECT COUNT(late) FROM time_sheets WHERE late = 1";
+        $sql = "SELECT COUNT(late) AS late_count FROM time_sheets WHERE late = 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
@@ -126,7 +126,7 @@ public function __construct()
 
     public function countLeaveEarly()
     {
-        $sql = "SELECT COUNT(leave_early) FROM time_sheets WHERE leave_early = 1";
+        $sql = "SELECT COUNT(leave_early) AS leaveEarly_count FROM time_sheets WHERE leave_early = 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
@@ -142,7 +142,7 @@ public function __construct()
 
     public function countAttendance0()
     {
-        $sql = "SELECT COUNT(attendance) FROM time_sheets WHERE attendance = 0";
+        $sql = "SELECT COUNT(attendance) AS attendance_0_count FROM time_sheets WHERE attendance = 0";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
@@ -158,7 +158,7 @@ public function __construct()
 
     public function countAttendance1()
     {
-        $sql = "SELECT COUNT(attendance) FROM time_sheets WHERE attendance = 1";
+        $sql = "SELECT COUNT(attendance) AS attendance_1_count FROM time_sheets WHERE attendance = 1";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
@@ -174,7 +174,7 @@ public function __construct()
 
     public function countAttendance2()
     {
-        $sql = "SELECT COUNT(attendance) FROM time_sheets WHERE attendance = 2";
+        $sql = "SELECT COUNT(attendance) AS attendance_2_count FROM time_sheets WHERE attendance = 2";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
@@ -191,11 +191,11 @@ public function __construct()
     public function addPerformanceEmployee($employee_id, $years, $months, $days_off, $working_days, $score)
     {
 
-        $sql ="UPDATE performances SET end_time = ? , days_off = ? , working_days = ?
+        $sql ="UPDATE performances SET days_off = ? , working_days = ? , score = ?
                    WHERE employee_id = ? AND years = ? AND months = ?";
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bind_param("isssss", $employee_id, $years, $months, $days_off, $working_days, $score);
+        $stmt->bind_param("iiidii", $days_off, $working_days, $score, $employee_id, $years, $months);
 
         $stmt->execute();
 
@@ -207,6 +207,26 @@ public function __construct()
         }
 
     }
+
+    public function getScore($employee_id) {
+        $scores = [];
+
+        $sql = "SELECT score FROM performances WHERE employee_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $employee_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        while ($row = $result->fetch_assoc()) {
+            $scores[] = $row['score'];
+        }
+
+        $stmt->close();
+
+        return $scores;
+    }
+
+
 
 
 }
