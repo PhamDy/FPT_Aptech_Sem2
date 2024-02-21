@@ -35,14 +35,14 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         canvas#performanceChart {
-            max-width: 1000px;
-            width: 50%;
-            height: 50%;
+            max-width: 500px;
+            width: 80%;
+            height: 40%;
         }
     </style>
 </head>
 <body>
-<h2>Employee Performance Overview of <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?> </h2>
+<h2>Employee Performance Overview</h2>
 <canvas id="performanceChart" width="800" height="400"></canvas>
 
 <script>

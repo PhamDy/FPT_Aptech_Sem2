@@ -55,22 +55,26 @@
             $dayOff = $Manager->countAttendance0();
             $scoreWorkHalf = 0.50 * $Manager->countAttendance1();
 
-            if ($dayOff == 0) {
-                $score = 22.00 - $scoreLate - $scoreLeaveEarly - $dayOff - $scoreWorkHalf + 1;
+
+//            if ($dayOff == 0) {
+//                $score = 22.00 - $scoreLate - $scoreLeaveEarly - $dayOff - $scoreWorkHalf + 1;
+//            } else {
+//                $score = 22.00 - $scoreLate - $scoreLeaveEarly - $dayOff - $scoreWorkHalf;
+//            }
+
+            if ($dayWorking == 22.00) {
+                $score = $dayWorking - $scoreLate - $scoreLeaveEarly  + $scoreWorkHalf + 1.00;
             } else {
-                $score = 22.00 - $scoreLate - $scoreLeaveEarly - $dayOff - $scoreWorkHalf;
+                $score = $dayWorking - $scoreLate - $scoreLeaveEarly + $scoreWorkHalf;
             }
 
+//            echo "$scoreLate   $scoreLeaveEarly  $dayWorking   $dayOff   $scoreWorkHalf   $score";
+            echo "Điểm của nhân viên $score";
             $savePerforman = $Manager->addPerformanceEmployee($user_id, $year, $month, $dayOff, $dayWorking, $score);
             $message2 = "Attendance afternoon successful";
 
         }
     }
-
-
-
-
-
 
 ?>
 
