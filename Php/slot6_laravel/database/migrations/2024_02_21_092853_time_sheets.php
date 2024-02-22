@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('time_sheets', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->integer('employee_id')->nullable()->index('employee_id');
             $table->date('work_date');
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
             $table->tinyInteger('late')->default(0);
             $table->tinyInteger('leave_early')->default(0);
             $table->integer('attendance')->default(0);
-            $table->timestamps();
         });
     }
 

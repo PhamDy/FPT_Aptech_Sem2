@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('performances', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('employee_id')->nullable();
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->integer('employee_id')->nullable()->index('employee_id');
             $table->year('years');
             $table->integer('months');
             $table->integer('days_off')->nullable();
             $table->integer('working_days')->nullable();
             $table->double('score')->nullable();
-            $table->timestamps();
         });
     }
 

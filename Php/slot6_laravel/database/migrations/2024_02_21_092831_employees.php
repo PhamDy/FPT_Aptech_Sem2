@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username');
-            $table->string('pwd');
+            $table->string('password');
             $table->date('start_date');
             $table->string('position');
-            $table->timestamps();
         });
     }
 
