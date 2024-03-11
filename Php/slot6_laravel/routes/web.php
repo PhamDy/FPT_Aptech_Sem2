@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PerformanController;
+use App\Http\Controllers\TimeSheetController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,8 @@ Route::post('/', [AuthController::class, 'checkLogin']);
 Route::get('/logout', [AuthController::class, 'showLoginForm'])->name('logout');
 
 Route::get('/attendance', [AttendanceController::class, 'showAttendance'])->name('attendance');
+
+Route::post('/attendance', [TimeSheetController::class, 'attdendanceMorning']);
 
 Route::get('/dashboard', [AttendanceController::class, 'showDashboard'])->name('dashboard');
 

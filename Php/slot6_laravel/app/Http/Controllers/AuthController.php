@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 
 class AuthController extends Controller
@@ -21,6 +22,7 @@ class AuthController extends Controller
             $password = $request->input("password");
             $employee = Employee::where('username', $username)->first();
             if ($employee && $employee->password === $password) {
+                Session::put('employee_id', $employee->id);
                 return redirect()->to('/attendance');
             } else {
                 $title = 'Tên đăng nhập hoặc mật khẩu không đúng';
